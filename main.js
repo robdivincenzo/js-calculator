@@ -66,6 +66,10 @@ function setOperator( operatorSelected ) {
 
 /* DOM functions */
 function simulateKeyPress(e) {
+    if( e.key == "Enter" ) { //enter key is =
+        const keyboardButton = this.document.querySelector(`button[data-key="="]`);
+        keyboardButton.click();
+    } 
     const keyboardButton = this.document.querySelector(`button[data-key="${e.key}"]`);
     if( keyboardButton !== null ) {
         keyboardButton.click();
