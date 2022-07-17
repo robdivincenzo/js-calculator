@@ -37,6 +37,7 @@ function storeAndOperate(e) {
             setOperand( Number(display.innerText) ); // set value to new operand 1 and prepare next operation
             setOperator( e.target.innerText );
         } else { //else, just set the operator
+            clearDisplayFlag = true; //set calculating flag to true to clear values before starting operand 2
             setOperator( e.target.innerText ); // set the operator for evaluation
         }
 
@@ -47,7 +48,6 @@ function storeAndOperate(e) {
 function setOperand( displayNum ) {
     if( operator == "" ) { //if no operator, it's operanad 1
         operand1 = displayNum;
-        clearDisplayFlag = true; //set calculating flag to true to clear values before starting operand 2
     } else { //else set oprand 2
         operand2 = displayNum;        
     }
