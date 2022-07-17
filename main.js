@@ -4,6 +4,8 @@ let inputButtons = document.querySelectorAll("button.input");
 let display = document.querySelector("span.result");
 let clearButton = document.querySelector("button.clear");
 let dotButton = document.querySelector("button.dot");
+let backButton = document.querySelector("button.back");
+
 
 let clearDisplayFlag = false; //for when we begin operand2
 let [operand1, operand2, operator] = "";
@@ -16,6 +18,11 @@ numberButtons.forEach( (numberButton) => {
 clearButton.addEventListener( 'click', clearCalculator );
 
 dotButton.addEventListener( 'click', addNumberToDisplay);
+
+backButton.addEventListener( 'click', function(e){
+    display.innerText = display.innerText.slice(0, display.innerText.length - 1);
+    setOperand( display.innerText );
+});
 
 inputButtons.forEach( (inputButton) => {
     inputButton.addEventListener( 'click', storeAndOperate );
@@ -32,13 +39,13 @@ function storeAndOperate(e) {
         if( operand1 !== "" && operand2 !== "" && operator !== "" ) { //evaluate only if we have all values
             display.innerText = operate(operator, operand1, operand2);
             clearMemory();
-            setOperand( Number(display.innerText) ); // set value to new operand 1 and prepare next operation    
+            setOperand( display.innerText ); // set value to new operand 1 and prepare next operation    
         }
     } else { // else it's +-*/
         if( operand1 !== "" && operand2 !== "" && operator !== "" ) { // if we already have all the pieces
             display.innerText = operate(operator, operand1, operand2); //operate
             clearMemory();
-            setOperand( Number(display.innerText) ); // set value to new operand 1 and prepare next operation
+            setOperand( display.innerText ); // set value to new operand 1 and prepare next operation
             setOperator( e.target.innerText );
         } else { //else, just set the operator
             clearDisplayFlag = true; //set calculating flag to true to clear values before starting operand 2
@@ -51,9 +58,9 @@ function storeAndOperate(e) {
 
 function setOperand( displayNum ) {
     if( operator == "" ) { //if no operator, it's operanad 1
-        operand1 = displayNum;
+        operand1 = Number(displayNum);
     } else { //else set oprand 2
-        operand2 = displayNum;        
+        operand2 = Number(displayNum);        
     }
 }
 
@@ -69,7 +76,7 @@ function addNumberToDisplay(e) {
         clearDisplayFlag = false;
     }
     display.innerText += e.target.innerText;
-    setOperand( Number(display.innerText) );
+    setOperand( display.innerText );
 }
 
 function clearCalculator(e) {
