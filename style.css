@@ -28,12 +28,10 @@ div.numbers-container {
 div.inputs-container{
     display: grid;
 }
-
 div#calculator button {
     padding: 20px;
     font-size: 20px;
 }
-
 button.zero {
     grid-column-start: 1;
     grid-column-end: 3;
@@ -43,11 +41,9 @@ button.dot {
     grid-column-end: 4;
 
 }
-
 .functions-container button.special-function {
     width: 50%;
 }
-
 .controls{
     display: flex;
 }

@@ -5,8 +5,6 @@ let display = document.querySelector("span.result");
 let clearButton = document.querySelector("button.clear");
 let dotButton = document.querySelector("button.dot");
 let backButton = document.querySelector("button.back");
-
-
 let clearDisplayFlag = false; //for when we begin operand2
 let [operand1, operand2, operator] = "";
 
@@ -14,19 +12,15 @@ let [operand1, operand2, operator] = "";
 numberButtons.forEach( (numberButton) => {
     numberButton.addEventListener( 'click', addNumberToDisplay);
 });
-
-clearButton.addEventListener( 'click', clearCalculator );
-
-dotButton.addEventListener( 'click', addNumberToDisplay);
-
-backButton.addEventListener( 'click', function(e){
-    display.innerText = display.innerText.slice(0, display.innerText.length - 1);
-    setOperand( display.innerText );
-});
-
 inputButtons.forEach( (inputButton) => {
     inputButton.addEventListener( 'click', storeAndOperate );
 });
+dotButton.addEventListener( 'click', addNumberToDisplay);
+clearButton.addEventListener( 'click', clearCalculator );
+backButton.addEventListener( 'click', removeNumberFromDisplay);
+
+/* Keyboard event listener */
+window.addEventListener( 'keydown', simulateKeyPress);
 
 /* On load run... */
 clearCalculator();
@@ -70,12 +64,23 @@ function setOperator( operatorSelected ) {
 
 
 /* DOM functions */
+function simulateKeyPress(e) {
+    const keyboardButton = this.document.querySelector(`button[data-key="${e.key}"]`);
+    if( keyboardButton !== null ) {
+        keyboardButton.click();
+    }
+}
 function addNumberToDisplay(e) {
     if( clearDisplayFlag == true ) {
         clearDisplay();
         clearDisplayFlag = false;
     }
     display.innerText += e.target.innerText;
+    setOperand( display.innerText );
+}
+
+function removeNumberFromDisplay(e) {
+    display.innerText = display.innerText.slice(0, display.innerText.length - 1);
     setOperand( display.innerText );
 }
 
@@ -136,5 +141,3 @@ function operate(operator, num1, num2) {
     }
     return Math.round(evaluatedNum * 10000) / 10000;
 }
-
-
