@@ -3,6 +3,8 @@ let numberButtons = document.querySelectorAll("button.number");
 let inputButtons = document.querySelectorAll("button.input");
 let display = document.querySelector("span.result");
 let clearButton = document.querySelector("button.clear");
+let dotButton = document.querySelector("button.dot");
+
 let clearDisplayFlag = false; //for when we begin operand2
 let [operand1, operand2, operator] = "";
 
@@ -12,6 +14,8 @@ numberButtons.forEach( (numberButton) => {
 });
 
 clearButton.addEventListener( 'click', clearCalculator );
+
+dotButton.addEventListener( 'click', addNumberToDisplay);
 
 inputButtons.forEach( (inputButton) => {
     inputButton.addEventListener( 'click', storeAndOperate );
