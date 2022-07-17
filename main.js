@@ -5,6 +5,7 @@ let display = document.querySelector("span.result");
 let clearButton = document.querySelector("button.clear");
 let dotButton = document.querySelector("button.dot");
 let backButton = document.querySelector("button.back");
+let allButtons = document.querySelectorAll("button");
 let clearDisplayFlag = false; //for when we begin operand2
 let [operand1, operand2, operator] = "";
 
@@ -15,6 +16,15 @@ numberButtons.forEach( (numberButton) => {
 inputButtons.forEach( (inputButton) => {
     inputButton.addEventListener( 'click', storeAndOperate );
 });
+allButtons.forEach( (button) => {
+    button.addEventListener( 'click', function(e) {
+        button.classList.add("pressed");
+    });
+    button.addEventListener( 'transitionend', function(e) {
+        button.classList.remove("pressed");
+    });
+});
+
 dotButton.addEventListener( 'click', addNumberToDisplay);
 clearButton.addEventListener( 'click', clearCalculator );
 backButton.addEventListener( 'click', removeNumberFromDisplay);

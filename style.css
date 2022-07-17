@@ -1,8 +1,19 @@
-body{
+/*Global Styles */
+body {
+    font-family: Arial, Helvetica, sans-serif;
     text-align: center;
 }
+
+/* Calculator Container Styles */
+div#calculator {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color:slategrey;
+    padding: 25px;
+    border-radius: 10px;
+}
 div.display {
-    background-color: #eee;
+    background-color: ivory;
     font-size: 24px;
     text-align: right;
     padding: 20px 0;
@@ -11,39 +22,7 @@ div.display {
 div.display span.result {
     padding: 20px;
 }
-div#calculator {
-    max-width: 800px;
-    margin: 0 auto;
-}
-div.display {
-    width: 100%;
-}
-div.functions-container{ 
-    display: flex;
-}
-div.numbers-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-div.inputs-container{
-    display: grid;
-}
-div#calculator button {
-    padding: 20px;
-    font-size: 20px;
-}
-button.zero {
-    grid-column-start: 1;
-    grid-column-end: 3;
-}
-button.dot {
-    grid-column-start: 3;
-    grid-column-end: 4;
-
-}
-.functions-container button.special-function {
-    width: 50%;
-}
+/* Layout Styles */
 .controls{
     display: flex;
 }
@@ -52,4 +31,51 @@ button.dot {
 }
 .right {
     flex-grow: 1;
+}
+div.functions-container{ 
+    display: flex;
+}
+.functions-container button.special-function {
+    width: 50%;
+}
+div.numbers-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+div.inputs-container{
+    display: grid;
+}
+
+/* Button styles */
+button {
+    transition: all .08s linear;
+    padding: 20px;
+    font-size: 20px;
+    border:1px solid black;
+}
+button.zero {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+button.dot {
+    grid-column-start: 3;
+    grid-column-end: 4;
+}
+.numbers-container button {
+    background-color:lightgrey;
+}
+.numbers-container button.pressed {
+    background-color:grey;
+}
+.inputs-container button {
+    background-color: orange;
+}
+.inputs-container button.pressed {
+    background-color: rgba(255, 166, 0, 0.659);
+}
+.functions-container button {
+    background-color: aquamarine;
+}
+.functions-container button.pressed {
+    background-color:rgba(127, 255, 212, 0.743);
 }
