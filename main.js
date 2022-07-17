@@ -3,40 +3,84 @@ let numberButtons = document.querySelectorAll("button.number");
 let inputButtons = document.querySelectorAll("button.input");
 let display = document.querySelector("span.result");
 let clearButton = document.querySelector("button.clear");
-let operand1 = "";
-let calculatingFlag = false;
+let clearDisplayFlag = false; //for when we begin operand2
+let [operand1, operand2, operator] = "";
 
 /* Event handlers */
 numberButtons.forEach( (numberButton) => {
     numberButton.addEventListener( 'click', addNumberToDisplay);
 });
 
-clearButton.addEventListener( 'click', clearDisplay );
+clearButton.addEventListener( 'click', clearCalculator );
 
 inputButtons.forEach( (inputButton) => {
-    inputButton.addEventListener( 'click', function(e) {
-        if( display.innerText != "" ) {
-            operand1 = Number(display.innerText);
-            calculatingFlag = true;
-        }
-    });
+    inputButton.addEventListener( 'click', storeAndOperate );
 });
+
+/* On load run... */
+clearCalculator();
+
+
+/* Functions */
+/* Operand / Operator memory functions */
+function storeAndOperate(e) {
+    if( e.target.innerText == "=") { //if =, evaluate operation and clear memory
+        if( operand1 !== "" && operand2 !== "" && operator !== "" ) { //evaluate only if we have all values
+            display.innerText = operate(operator, operand1, operand2);
+            clearMemory();
+            setOperand( Number(display.innerText) ); // set value to new operand 1 and prepare next operation    
+        }
+    } else { // else it's +-*/
+        if( operand1 !== "" && operand2 !== "" && operator !== "" ) { // if we already have all the pieces
+            display.innerText = operate(operator, operand1, operand2); //operate
+            clearMemory();
+            setOperand( Number(display.innerText) ); // set value to new operand 1 and prepare next operation
+            setOperator( e.target.innerText );
+        } else { //else, just set the operator
+            setOperator( e.target.innerText ); // set the operator for evaluation
+        }
+
+    }
+    
+}
+
+function setOperand( displayNum ) {
+    if( operator == "" ) { //if no operator, it's operanad 1
+        operand1 = displayNum;
+        clearDisplayFlag = true; //set calculating flag to true to clear values before starting operand 2
+    } else { //else set oprand 2
+        operand2 = displayNum;        
+    }
+}
+
+function setOperator( operatorSelected ) {
+        operator = operatorSelected;
+}
 
 
 /* DOM functions */
 function addNumberToDisplay(e) {
-    if( calculatingFlag == true ) {
-        display.innerText = "";
-        calculatingFlag = false;
-    }
-    if( display.innerText == 0 ) {
-        display.innerText = "";
+    if( clearDisplayFlag == true ) {
+        clearDisplay();
+        clearDisplayFlag = false;
     }
     display.innerText += e.target.innerText;
+    setOperand( Number(display.innerText) );
 }
 
-function clearDisplay(e) {
+function clearCalculator(e) {
+    clearDisplay();
+    clearMemory();
+}
+
+function clearDisplay() {
     display.innerText = "";
+}
+
+function clearMemory() {
+    operator = "";
+    operand1 = "";
+    operand2 = "";
 }
 
 
@@ -58,23 +102,28 @@ function divide(num1, num2) {
 }
 
 function operate(operator, num1, num2) {
+    let evaluatedNum = 0;
     switch( operator ){
         case "+":
-            return add(num1, num2);
+            evaluatedNum = add(num1, num2);
             break;
         case "-":
-            return subtract(num1, num2);
+            evaluatedNum = subtract(num1, num2);
             break;
         case "*":
-            return multiply(num1, num2);
+            evaluatedNum = multiply(num1, num2);
             break;
         case "/":
-            return divide(num1, num2);
+            if( num2 == 0) {
+                return "Yeah ok.gif";
+            }
+            evaluatedNum = divide(num1, num2);
             break;
         default:
             return "Invalid operator.";
             break;
     }
+    return Math.round(evaluatedNum * 10000) / 10000;
 }
 
 
