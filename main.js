@@ -41,9 +41,10 @@ function storeAndOperate(e) {
             clearMemory();
             setOperand( display.innerText ); // set value to new operand 1 and prepare next operation
             setOperator( e.target.innerText );
-        } else { //else, just set the operator
             clearDisplayFlag = true; //set calculating flag to true to clear values before starting operand 2
+        } else { //else, just set the operator
             setOperator( e.target.innerText ); // set the operator for evaluation
+            clearDisplayFlag = true; //set calculating flag to true to clear values before starting operand 2
         }
 
     }
