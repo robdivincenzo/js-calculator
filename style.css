@@ -12,23 +12,20 @@ div.display span.result {
     padding: 20px;
 }
 div#calculator {
-    width: 800px;
+    max-width: 800px;
     margin: 0 auto;
 }
 div.display {
     width: 100%;
 }
 div.functions-container{ 
-    width: 66%;
+    display: flex;
 }
 div.numbers-container {
-    width: 66%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
 div.inputs-container{
-    width: 33%;
-    float:right;
     display: grid;
 }
 
@@ -43,5 +40,15 @@ button.zero {
 }
 
 button.special-function {
-    width: 100%;
+    width: 50%;
+}
+
+.controls{
+    display: flex;
+}
+.left {
+    width: 66%;
+}
+.right {
+    flex-grow: 1;
 }
